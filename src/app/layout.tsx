@@ -1,20 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Figtree, Shadows_Into_Light } from "next/font/google";
+import { Shadows_Into_Light } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import HeroHeader from "./components/HeroHeader";
 import ProjectGrid from "./components/ProjectGrid";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const figtree = Figtree({
-  variable: "--font-figtree",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
 
 const shadowsIntoLight = Shadows_Into_Light({
   variable: "--font-shadows-into-light",
