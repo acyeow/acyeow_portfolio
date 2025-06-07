@@ -3,6 +3,7 @@
 import React from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 const ProjectPage = () => {
   const { id } = useParams();
@@ -112,7 +113,7 @@ const ProjectPage = () => {
               controls
             />
           ) : (
-            <img
+            <Image
               src={project.imageUrl}
               alt={project.title}
               className="w-full h-auto max-h-[70vh] object-contain"
