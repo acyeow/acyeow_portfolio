@@ -75,7 +75,7 @@ const ProjectPage = () => {
       {/* Close button */}
       <div className="fixed top-2 right-4 z-10">
         <Link href="/" prefetch={true}>
-          <button className="text-gray-200 text-3xl hover:text-green-200 transition-colors duration-200 cursor-pointer">
+          <button className="text-gray-200 text-2xl md:text-3xl hover:text-green-200 transition-colors duration-200 cursor-pointer">
             ×
           </button>
         </Link>
@@ -83,10 +83,10 @@ const ProjectPage = () => {
 
       {/* Project Title */}
       <div className="p-4">
-        <h1 className="text-gray-200 text-[1.5rem] font-semibold uppercase">
+        <h1 className="text-gray-200 text-[1.2rem] md:text-[1.5rem] font-semibold uppercase">
           {project.title}
         </h1>
-        <div className="flex items-center gap-4 mt-2">
+        <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mt-2">
           <span className="text-zinc-600 text-[0.65rem] uppercase">
             {project.description}
           </span>
@@ -105,7 +105,7 @@ const ProjectPage = () => {
           {isVideo ? (
             <video
               src={project.imageUrl}
-              className="w-full h-auto max-h-[70vh] object-contain"
+              className="w-full h-auto max-h-[50vh] md:max-h-[70vh] object-contain"
               autoPlay
               loop
               muted
@@ -113,10 +113,10 @@ const ProjectPage = () => {
               controls
             />
           ) : (
-            <Image
+            <img
               src={project.imageUrl}
               alt={project.title}
-              className="w-full h-auto max-h-[70vh] object-contain"
+              className="w-full h-auto max-h-[50vh] md:max-h-[70vh] object-contain"
             />
           )}
         </div>

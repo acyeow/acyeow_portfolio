@@ -45,7 +45,7 @@ const ProjectCard = ({
               src={imageUrl}
               alt={title}
               className="w-full h-auto"
-              onLoadedData={handleMediaLoaded}
+              onLoad={handleMediaLoaded}
             />
           )}
         </div>

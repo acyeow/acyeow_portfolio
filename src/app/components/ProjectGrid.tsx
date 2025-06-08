@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ProjectCard from "./ProjectCard";
 
 const ProjectGrid = () => {
@@ -38,11 +38,24 @@ const ProjectGrid = () => {
   ];
 
   const gridRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Check if window is available and set initial mobile state
+    const checkMobile = () => {
+      if (typeof window !== "undefined") {
+        setIsMobile(window.innerWidth < 768);
+      }
+    };
+
+    checkMobile();
+
     const positionGridItems = () => {
       const grid = gridRef.current;
       if (!grid) return;
+
+      // Skip grid positioning on mobile
+      if (isMobile) return;
 
       // 1. Define the small "unit" height for our grid rows
       const rowHeight = 10; // in pixels
@@ -63,24 +76,34 @@ const ProjectGrid = () => {
       });
     };
 
+    const handleResize = () => {
+      checkMobile();
+      positionGridItems();
+    };
+
     // A more robust solution would use a library like `imagesLoaded`,
     // but a timeout is a simple way to wait for media to render.
     const timer = setTimeout(positionGridItems, 500);
-    window.addEventListener("resize", positionGridItems);
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", handleResize);
+    }
 
     // Cleanup function
     return () => {
       clearTimeout(timer);
-      window.removeEventListener("resize", positionGridItems);
+      if (typeof window !== "undefined") {
+        window.removeEventListener("resize", handleResize);
+      }
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <div
       ref={gridRef}
-      className="grid grid-cols-3 gap-2 px-4 py-8"
-      // Define a small, fixed height for each grid row "unit"
-      style={{ gridAutoRows: `10px` }}
+      className="grid grid-cols-1 md:grid-cols-3 gap-2 px-4 py-8"
+      // Define a small, fixed height for each grid row "unit" only on desktop
+      style={{ gridAutoRows: isMobile ? "auto" : `10px` }}
     >
       {projects.map((project, index) => (
         // Each card is a direct child of the grid
