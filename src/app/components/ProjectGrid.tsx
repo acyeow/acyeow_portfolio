@@ -2,41 +2,9 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import ProjectCard from "./ProjectCard";
+import { gridProjects } from "../data/projects";
 
 const ProjectGrid = () => {
-  const projects = [
-    {
-      id: "changelog-ai",
-      title: "changelog.ai",
-      description: "AI Engineering",
-      imageUrl: "/images/changelog_clip.mp4",
-    },
-    {
-      id: "sonic-gameplaying-ai",
-      title: "Sonic Gameplaying AI",
-      description: "Reinforcement Learning",
-      imageUrl: "/images/sonic_clip.mp4",
-    },
-    {
-      id: "l-store-db",
-      title: "L-Store DB",
-      description: "Database Systems",
-      imageUrl: "/images/lstore_merge.png",
-    },
-    {
-      id: "mistique",
-      title: "mistique",
-      description: "Retrieval Augmented Generation",
-      imageUrl: "/images/mistique_homepage.png",
-    },
-    {
-      id: "heart-disease-prediction",
-      title: "Heart Disease Prediction",
-      description: "Supervised Learning",
-      imageUrl: "/images/heart_disease.png",
-    },
-  ];
-
   const gridRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -105,7 +73,7 @@ const ProjectGrid = () => {
       // Define a small, fixed height for each grid row "unit" only on desktop
       style={{ gridAutoRows: isMobile ? "auto" : `10px` }}
     >
-      {projects.map((project, index) => (
+      {gridProjects.map((project, index) => (
         // Each card is a direct child of the grid
         <div key={index}>
           <ProjectCard

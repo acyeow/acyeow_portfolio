@@ -49,7 +49,7 @@ const ProjectCard = ({
             />
           )}
         </div>
-        <h3 className="text-gray-200 text-[0.65rem] uppercase mb-1">{title}</h3>
+        <h3 className="text-gray-200 text-[0.70rem] uppercase mb-1">{title}</h3>
         <p className="text-zinc-600 text-[0.7rem] uppercase">{description}</p>
       </div>
     </Link>

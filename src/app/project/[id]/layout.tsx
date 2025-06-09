@@ -13,11 +13,9 @@ export default function ProjectLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-black selection:bg-transparent selection:text-green-200">
+    <div className="min-h-screen selection:bg-transparent selection:text-green-200">
       <Header />
-      <div className="mx-auto max-w-[98%] border-b border-zinc-800 border-opacity-50"></div>
-      <div className="py-2"></div>
-      {children}
+      <div>{children}</div>
     </div>
   );
 }
