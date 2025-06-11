@@ -2,23 +2,15 @@
 
 import React from "react";
 import Link from "next/link";
+import { Project } from "../data/projects";
 
 interface ProjectCardProps {
-  title: string;
-  description: string;
-  imageUrl: string;
-  projectId: string;
+  project: Project;
   onMediaLoad?: () => void;
 }
 
-const ProjectCard = ({
-  title,
-  description,
-  imageUrl,
-  projectId,
-  onMediaLoad,
-}: ProjectCardProps) => {
-  const isVideo = imageUrl.match(/\.(mp4|webm|ogg)$/i);
+const ProjectCard = ({ project, onMediaLoad }: ProjectCardProps) => {
+  const isVideo = project.imageUrl.match(/\.(mp4|webm|ogg)$/i);
 
   const handleMediaLoaded = () => {
     if (onMediaLoad) {
@@ -27,12 +19,12 @@ const ProjectCard = ({
   };
 
   return (
-    <Link href={`/project/${projectId}`} prefetch={true}>
+    <Link href={`/project/${project.id}`} prefetch={true}>
       <div className="p-1 break-inside-avoid mb-2 hover:opacity-60 transition-opacity duration-300 cursor-pointer">
         <div className="bg-gray-800 overflow-hidden mb-5">
           {isVideo ? (
             <video
-              src={imageUrl}
+              src={project.imageUrl}
               className="w-full h-auto"
               autoPlay
               loop
@@ -42,15 +34,19 @@ const ProjectCard = ({
             />
           ) : (
             <img
-              src={imageUrl}
-              alt={title}
+              src={project.imageUrl}
+              alt={project.title}
               className="w-full h-auto"
               onLoad={handleMediaLoaded}
             />
           )}
         </div>
-        <h3 className="text-gray-200 text-[0.70rem] uppercase mb-1">{title}</h3>
-        <p className="text-zinc-600 text-[0.7rem] uppercase">{description}</p>
+        <h3 className="text-gray-200 text-[0.70rem] uppercase mb-1">
+          {project.title}
+        </h3>
+        <p className="text-zinc-600 text-[0.7rem] uppercase">
+          {project.description}
+        </p>
       </div>
     </Link>
   );

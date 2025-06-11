@@ -1,4 +1,18 @@
-export const projects = [
+export interface Project {
+  id: string;
+  title: string;
+  date: string;
+  description: string;
+  fullDescription: string;
+  imageUrl: string;
+  gridOrder: number;
+  role: string;
+  collaborators: string[];
+  tools: string[];
+  additionalImages?: string[];
+}
+
+export const projects: Project[] = [
   {
     id: "changelog-ai",
     title: "changelog.ai",
@@ -8,6 +22,14 @@ export const projects = [
       "Building an AI-powered developer onboarding tool that facilitates comprehensive understanding of GitHub repositories.",
     imageUrl: "/images/changelog_clip.mp4",
     gridOrder: 1,
+    role: "AI Engineer",
+    collaborators: ["Solo Project"],
+    tools: ["Typescript", "Next.js", "OpenAI", "Vercel"],
+    additionalImages: [
+      "/images/changelog_dashboard.png",
+      "/images/changelog_analysis.png",
+      "/images/changelog_features.png",
+    ],
   },
   {
     id: "l-store-db",
@@ -18,6 +40,13 @@ export const projects = [
       "A lineage-based Hybrid Transactional/Analytical Processing (HTAP) database from scratch. [ECS 165A]",
     imageUrl: "/images/lstore_merge.png",
     gridOrder: 3,
+    role: "Developer",
+    collaborators: ["Calvin Lau", "James Hu", "Eugene Teng"],
+    tools: ["Python"],
+    additionalImages: [
+      "/images/lstore_architecture.png",
+      "/images/lstore_performance.png",
+    ],
   },
   {
     id: "mistique",
@@ -28,6 +57,13 @@ export const projects = [
       "A Retrieval Augmented Generation (RAG) Q/A system for the Mistral7B paper.",
     imageUrl: "/images/mistique_homepage.png",
     gridOrder: 4,
+    role: "Software Engineer",
+    collaborators: ["Solo Project"],
+    tools: ["AWS, Python, Docker, FastAPI"],
+    additionalImages: [
+      "/images/mistique_interface.png",
+      "/images/mistique_results.png",
+    ],
   },
   {
     id: "sonic-gameplaying-ai",
@@ -38,6 +74,23 @@ export const projects = [
       "A Proximal Policy Optimization (PPO) agent that plays Sonic the Hedgehog. [ECS 170]",
     imageUrl: "/images/sonic_clip.mp4",
     gridOrder: 2,
+    role: "Machine Learning Engineer",
+    collaborators: ["Darroll Saddi", "Ryan Li"],
+    tools: ["Gymnasium", "Python"],
+    additionalImages: [
+      "/images/sonic1.png",
+      "/images/sonic2.png",
+      "/images/sonic3.png",
+      "/images/sonic4.png",
+      "/images/sonic5.png",
+      "/images/sonic6.png",
+      "/images/sonic7.png",
+      "/images/sonic8.png",
+      "/images/sonic9.png",
+      "/images/sonic10.png",
+      "/images/sonic11.png",
+      "/images/sonic12.png",
+    ],
   },
   {
     id: "heart-disease-prediction",
@@ -48,6 +101,13 @@ export const projects = [
       "A Light Gradient-Boosting Machine (LightGBM) model that predicts heart disease from imbalanced structured data.",
     imageUrl: "/images/heart_disease.png",
     gridOrder: 5,
+    role: "Data Scientist",
+    collaborators: ["Solo Project"],
+    tools: ["Scikit-Learn", "Pandas", "NumPy", "Matplotlib"],
+    additionalImages: [
+      "/images/heart_analysis.png",
+      "/images/heart_results.png",
+    ],
   },
 ];
 
