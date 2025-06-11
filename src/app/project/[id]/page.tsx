@@ -34,7 +34,7 @@ const ProjectPage = () => {
       </div>
 
       {/* Main Project Image */}
-      <div className="w-full pr-4 overflow-hidden flex justify-start mb-8">
+      <div className="w-full px-4 overflow-hidden flex justify-center mb-8">
         {isMainVideo ? (
           <video
             src={project.imageUrl}
@@ -98,7 +98,7 @@ const ProjectPage = () => {
               </h3>
               <div className="space-y-1">
                 {project.collaborators
-                  ?.slice(0, 4)
+                  ?.slice(0, 3)
                   .map((collaborator, index) => (
                     <p
                       key={index}
@@ -144,14 +144,11 @@ const ProjectPage = () => {
               {project.additionalImages.map((imageUrl, index) => {
                 const isVideo = imageUrl.match(/\.(mp4|webm|ogg)$/i);
                 return (
-                  <div
-                    key={index}
-                    className="w-full overflow-hidden flex justify-start"
-                  >
+                  <div key={index} className="w-full overflow-hidden">
                     {isVideo ? (
                       <video
                         src={imageUrl}
-                        className="max-w-full max-h-[70vh] h-auto object-contain"
+                        className="w-full h-auto object-contain"
                         autoPlay
                         loop
                         muted
@@ -162,7 +159,7 @@ const ProjectPage = () => {
                       <Image
                         src={imageUrl}
                         alt={`${project.title} - Image ${index + 1}`}
-                        className="max-w-full max-h-[70vh] h-auto object-contain"
+                        className="w-full h-auto object-contain"
                         width={1200}
                         height={600}
                       />

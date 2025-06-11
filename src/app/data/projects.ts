@@ -24,12 +24,8 @@ export const projects: Project[] = [
     gridOrder: 1,
     role: "AI Engineer",
     collaborators: ["Solo Project"],
-    tools: ["Typescript", "Next.js", "OpenAI", "Vercel"],
-    additionalImages: [
-      "/images/changelog_dashboard.png",
-      "/images/changelog_analysis.png",
-      "/images/changelog_features.png",
-    ],
+    tools: ["Typescript", "Next.js", "OpenAI"],
+    additionalImages: [],
   },
   {
     id: "l-store-db",
@@ -43,10 +39,7 @@ export const projects: Project[] = [
     role: "Developer",
     collaborators: ["Calvin Lau", "James Hu", "Eugene Teng"],
     tools: ["Python"],
-    additionalImages: [
-      "/images/lstore_architecture.png",
-      "/images/lstore_performance.png",
-    ],
+    additionalImages: [],
   },
   {
     id: "mistique",
@@ -59,11 +52,8 @@ export const projects: Project[] = [
     gridOrder: 4,
     role: "Software Engineer",
     collaborators: ["Solo Project"],
-    tools: ["AWS, Python, Docker, FastAPI"],
-    additionalImages: [
-      "/images/mistique_interface.png",
-      "/images/mistique_results.png",
-    ],
+    tools: ["AWS", "Docker", "FastAPI"],
+    additionalImages: ["/images/mistique_question.png"],
   },
   {
     id: "sonic-gameplaying-ai",
@@ -103,11 +93,8 @@ export const projects: Project[] = [
     gridOrder: 5,
     role: "Data Scientist",
     collaborators: ["Solo Project"],
-    tools: ["Scikit-Learn", "Pandas", "NumPy", "Matplotlib"],
-    additionalImages: [
-      "/images/heart_analysis.png",
-      "/images/heart_results.png",
-    ],
+    tools: ["Pytorch", "Pandas", "NumPy"],
+    additionalImages: [],
   },
 ];
 
