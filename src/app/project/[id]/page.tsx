@@ -83,7 +83,9 @@ const ProjectPage = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {/* Role */}
             <div>
-              <h3 className="text-zinc-600 text-[0.7rem] uppercase mb-2">Role</h3>
+              <h3 className="text-zinc-600 text-[0.7rem] uppercase mb-2">
+                Role
+              </h3>
               <p className="text-gray-200 text-[0.8rem] font-semibold">
                 {project.role}
               </p>
@@ -95,14 +97,16 @@ const ProjectPage = () => {
                 Collaborators
               </h3>
               <div className="space-y-1">
-                {project.collaborators?.slice(0, 4).map((collaborator, index) => (
-                  <p
-                    key={index}
-                    className="text-gray-200 text-[0.8rem] font-semibold"
-                  >
-                    {collaborator}
-                  </p>
-                ))}
+                {project.collaborators
+                  ?.slice(0, 4)
+                  .map((collaborator, index) => (
+                    <p
+                      key={index}
+                      className="text-gray-200 text-[0.8rem] font-semibold"
+                    >
+                      {collaborator}
+                    </p>
+                  ))}
               </div>
             </div>
 
@@ -140,7 +144,10 @@ const ProjectPage = () => {
               {project.additionalImages.map((imageUrl, index) => {
                 const isVideo = imageUrl.match(/\.(mp4|webm|ogg)$/i);
                 return (
-                  <div key={index} className="w-full overflow-hidden flex justify-start">
+                  <div
+                    key={index}
+                    className="w-full overflow-hidden flex justify-start"
+                  >
                     {isVideo ? (
                       <video
                         src={imageUrl}
