@@ -14,7 +14,10 @@ const ProjectCard = ({ project, onMediaLoad }: ProjectCardProps) => {
 
   const handleMediaLoaded = () => {
     if (onMediaLoad) {
-      onMediaLoad();
+      // Add a small delay to ensure the DOM has updated
+      setTimeout(() => {
+        onMediaLoad();
+      }, 100);
     }
   };
 

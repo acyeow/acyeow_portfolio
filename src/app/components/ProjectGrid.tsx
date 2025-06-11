@@ -7,6 +7,7 @@ import { gridProjects } from "../data/projects";
 const ProjectGrid = () => {
   const gridRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [loadedMedia, setLoadedMedia] = useState(new Set<number>());
 
   useEffect(() => {
     // Check if window is available and set initial mobile state
@@ -64,7 +65,15 @@ const ProjectGrid = () => {
         window.removeEventListener("resize", handleResize);
       }
     };
-  }, [isMobile]);
+  }, [isMobile, loadedMedia]); // Add loadedMedia as dependency
+
+  const handleMediaLoad = (index: number) => {
+    setLoadedMedia((prev) => {
+      const newSet = new Set(prev);
+      newSet.add(index);
+      return newSet;
+    });
+  };
 
   return (
     <div
@@ -74,7 +83,10 @@ const ProjectGrid = () => {
     >
       {gridProjects.map((project, index) => (
         <div key={index}>
-          <ProjectCard project={project} />
+          <ProjectCard
+            project={project}
+            onMediaLoad={() => handleMediaLoad(index)}
+          />
         </div>
       ))}
     </div>

@@ -71,7 +71,7 @@ const ProjectPage = () => {
         </div>
 
         {/* Second and Third Columns: Scrollable Content */}
-        <div className="md:col-span-2 pr-4 space-y-8">
+        <div className="md:col-span-2 px-4 md:pr-4 md:pl-0 space-y-8">
           {/* Full Description */}
           <div>
             <p className="text-gray-200 text-[0.8rem] font-semibold">

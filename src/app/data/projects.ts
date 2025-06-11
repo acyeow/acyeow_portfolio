@@ -36,7 +36,7 @@ export const projects: Project[] = [
       "A lineage-based Hybrid Transactional/Analytical Processing (HTAP) database from scratch. [ECS 165A]",
     imageUrl: "/images/lstore_merge.png",
     gridOrder: 3,
-    role: "Developer",
+    role: "Python Developer",
     collaborators: ["Calvin Lau", "James Hu", "Eugene Teng"],
     tools: ["Python"],
     additionalImages: [],
