@@ -1,15 +1,21 @@
+export interface ProjectImage {
+  url: string;
+  caption?: string;
+}
+
 export interface Project {
   id: string;
   title: string;
   date: string;
   description: string;
   fullDescription: string;
+  projectDescription: string;
   imageUrl: string;
   gridOrder: number;
   role: string;
   collaborators: string[];
   tools: string[];
-  additionalImages?: string[];
+  additionalImages?: (string | ProjectImage)[];
 }
 
 export const projects: Project[] = [
@@ -20,8 +26,9 @@ export const projects: Project[] = [
     description: "AI Engineering",
     fullDescription:
       "Building an AI-powered developer onboarding tool that facilitates comprehensive understanding of GitHub repositories.",
+    projectDescription: "",
     imageUrl: "/images/changelog_clip.mp4",
-    gridOrder: 1,
+    gridOrder: 4,
     role: "AI Engineer",
     collaborators: ["Solo Project"],
     tools: ["Typescript", "Next.js", "OpenAI"],
@@ -34,6 +41,7 @@ export const projects: Project[] = [
     description: "Database Systems",
     fullDescription:
       "A lineage-based Hybrid Transactional/Analytical Processing (HTAP) database from scratch. [ECS 165A]",
+    projectDescription: "",
     imageUrl: "/images/lstore_merge.png",
     gridOrder: 3,
     role: "Python Developer",
@@ -48,12 +56,43 @@ export const projects: Project[] = [
     description: "Retrieval Augmented Generation",
     fullDescription:
       "A Retrieval Augmented Generation (RAG) Q/A system for the Mistral7B paper.",
+    projectDescription: `
+      mistique allows users to ask questions about the Mistral7B reserach paper thorugh a Retrival Augmented Generation (RAG) pipeline. 
+      This application uses ChromaDB to create a vector database, which will be queried to find relevant information to the prompt. 
+      To create the embeddings for the vector database, Amazon Bedrock embeddings are used and cosine similarity is used to compute the 
+      similarity between the prompt embedding and embeddings saved to the ChromaDB. This functionality is wrapped in a FastAPI endpoint 
+      which has been deployed as an AWS Lambda function. AWS CDK was used to provison resources for support this functionality. The 
+      frontend of this application was created using Next.js and deployed to Vercel.
+      `,
     imageUrl: "/images/mistique_homepage.png",
-    gridOrder: 4,
+    gridOrder: 1,
     role: "Software Engineer",
     collaborators: ["Solo Project"],
     tools: ["AWS", "Docker", "FastAPI"],
-    additionalImages: ["/images/mistique_question.png"],
+    additionalImages: [
+      {
+        url: "/images/mistique_question.png",
+        caption: "Question answer UI showing RAG sources.",
+      },
+      { url: "/images/mistique1.PNG", caption: "FastAPI endpoints." },
+      {
+        url: "/images/mistique2.PNG",
+        caption: "Asking a question using the /submit_query endpoint.",
+      },
+      {
+        url: "/images/mistique3.PNG",
+        caption:
+          "Getting a query_id back as backend processes the request asynchronously.",
+      },
+      {
+        url: "/images/mistique4.PNG",
+        caption: "Passing the query_id back via the /get_query endpoint.",
+      },
+      {
+        url: "/images/mistique5.PNG",
+        caption: "Getting the response back from the /get_query endpoint.",
+      },
+    ],
   },
   {
     id: "sonic-gameplaying-ai",
@@ -62,6 +101,7 @@ export const projects: Project[] = [
     description: "Reinforcement Learning",
     fullDescription:
       "A Proximal Policy Optimization (PPO) agent that plays Sonic the Hedgehog. [ECS 170]",
+    projectDescription: "",
     imageUrl: "/images/sonic_clip.mp4",
     gridOrder: 2,
     role: "Machine Learning Engineer",
@@ -89,6 +129,7 @@ export const projects: Project[] = [
     description: "Supervised Learning",
     fullDescription:
       "A Light Gradient-Boosting Machine (LightGBM) model that predicts heart disease from imbalanced structured data.",
+    projectDescription: "",
     imageUrl: "/images/heart_disease.png",
     gridOrder: 5,
     role: "Data Scientist",

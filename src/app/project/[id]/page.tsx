@@ -140,9 +140,14 @@ const ProjectPage = () => {
 
           {/* Additional Images */}
           {project.additionalImages && project.additionalImages.length > 0 && (
-            <div className="space-y-6">
-              {project.additionalImages.map((imageUrl, index) => {
+            <div className="space-y-4">
+              {project.additionalImages.map((imageItem, index) => {
+                const imageUrl =
+                  typeof imageItem === "string" ? imageItem : imageItem.url;
+                const caption =
+                  typeof imageItem === "string" ? undefined : imageItem.caption;
                 const isVideo = imageUrl.match(/\.(mp4|webm|ogg)$/i);
+
                 return (
                   <div key={index} className="w-full overflow-hidden">
                     {isVideo ? (
@@ -158,11 +163,16 @@ const ProjectPage = () => {
                     ) : (
                       <Image
                         src={imageUrl}
-                        alt={`${project.title} - Image ${index + 1}`}
+                        alt={caption || `${project.title} - Image ${index + 1}`}
                         className="w-full h-auto object-contain"
                         width={1200}
                         height={600}
                       />
+                    )}
+                    {caption && (
+                      <p className="text-zinc-400 text-[0.70rem] uppercase mt-4">
+                        {caption}
+                      </p>
                     )}
                   </div>
                 );
