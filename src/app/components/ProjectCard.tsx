@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import Link from "next/link";
 import { Project } from "../data/projects";
 
@@ -12,14 +12,12 @@ interface ProjectCardProps {
 const ProjectCard = ({ project, onMediaLoad }: ProjectCardProps) => {
   const isVideo = project.imageUrl.match(/\.(mp4|webm|ogg)$/i);
 
-  const handleMediaLoaded = () => {
+  const handleMediaLoaded = useCallback(() => {
     if (onMediaLoad) {
-      // Add a small delay to ensure the DOM has updated
-      setTimeout(() => {
-        onMediaLoad();
-      }, 100);
+      // Only call once per card
+      onMediaLoad();
     }
-  };
+  }, [onMediaLoad]);
 
   return (
     <Link href={`/project/${project.id}`} prefetch={true}>

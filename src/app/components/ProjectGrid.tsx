@@ -1,13 +1,39 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import ProjectCard from "./ProjectCard";
 import { gridProjects } from "../data/projects";
 
 const ProjectGrid = () => {
   const gridRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [loadedMedia, setLoadedMedia] = useState(new Set<number>());
+  const [isPositioned, setIsPositioned] = useState(false);
+  const positionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const positionGridItems = useCallback(() => {
+    const grid = gridRef.current;
+    if (!grid || isMobile || isPositioned) return;
+
+    // 1. Define the small "unit" height for our grid rows
+    const rowHeight = 10; // in pixels
+    const rowGap = 8; // Reduced from 16 to 8 pixels
+
+    const children = Array.from(grid.children) as HTMLElement[];
+    children.forEach((item: HTMLElement) => {
+      const content = item.firstElementChild as HTMLElement; // Get the ProjectCard div
+      if (content) {
+        // 2. Calculate how many "unit" rows the content spans
+        const contentHeight = content.getBoundingClientRect().height;
+        const rowSpan = Math.ceil(
+          (contentHeight + rowGap) / (rowHeight + rowGap)
+        );
+        // 3. Apply the calculated span to the grid item
+        item.style.gridRowEnd = `span ${rowSpan}`;
+      }
+    });
+
+    setIsPositioned(true);
+  }, [isMobile, isPositioned]);
 
   useEffect(() => {
     // Check if window is available and set initial mobile state
@@ -19,40 +45,27 @@ const ProjectGrid = () => {
 
     checkMobile();
 
-    const positionGridItems = () => {
-      const grid = gridRef.current;
-      if (!grid) return;
-
-      // Skip grid positioning on mobile
-      if (isMobile) return;
-
-      // 1. Define the small "unit" height for our grid rows
-      const rowHeight = 10; // in pixels
-      const rowGap = 8; // Reduced from 16 to 8 pixels
-
-      const children = Array.from(grid.children) as HTMLElement[];
-      children.forEach((item: HTMLElement) => {
-        const content = item.firstElementChild as HTMLElement; // Get the ProjectCard div
-        if (content) {
-          // 2. Calculate how many "unit" rows the content spans
-          const contentHeight = content.getBoundingClientRect().height;
-          const rowSpan = Math.ceil(
-            (contentHeight + rowGap) / (rowHeight + rowGap)
-          );
-          // 3. Apply the calculated span to the grid item
-          item.style.gridRowEnd = `span ${rowSpan}`;
-        }
-      });
-    };
-
     const handleResize = () => {
+      const wasMobile = isMobile;
       checkMobile();
-      positionGridItems();
+
+      // Only reposition if mobile state changed
+      if (wasMobile !== window.innerWidth < 768) {
+        setIsPositioned(false);
+      }
     };
 
-    // A more robust solution would use a library like `imagesLoaded`,
-    // but a timeout is a simple way to wait for media to render.
-    const timer = setTimeout(positionGridItems, 500);
+    // Only set up positioning if not already positioned
+    if (!isPositioned && !isMobile) {
+      // Clear any existing timeout
+      if (positionTimeoutRef.current) {
+        clearTimeout(positionTimeoutRef.current);
+      }
+
+      positionTimeoutRef.current = setTimeout(() => {
+        positionGridItems();
+      }, 100); // Reduced from 500ms to 300ms
+    }
 
     if (typeof window !== "undefined") {
       window.addEventListener("resize", handleResize);
@@ -60,20 +73,28 @@ const ProjectGrid = () => {
 
     // Cleanup function
     return () => {
-      clearTimeout(timer);
+      if (positionTimeoutRef.current) {
+        clearTimeout(positionTimeoutRef.current);
+      }
       if (typeof window !== "undefined") {
         window.removeEventListener("resize", handleResize);
       }
     };
-  }, [isMobile, loadedMedia]); // Add loadedMedia as dependency
+  }, [isMobile, isPositioned, positionGridItems]);
 
-  const handleMediaLoad = (index: number) => {
-    setLoadedMedia((prev) => {
-      const newSet = new Set(prev);
-      newSet.add(index);
-      return newSet;
-    });
-  };
+  // Simplified media load handler - only for initial positioning
+  const handleMediaLoad = useCallback(() => {
+    if (!isPositioned && !isMobile) {
+      // Debounce the positioning to avoid multiple calls
+      if (positionTimeoutRef.current) {
+        clearTimeout(positionTimeoutRef.current);
+      }
+
+      positionTimeoutRef.current = setTimeout(() => {
+        positionGridItems();
+      }, 100);
+    }
+  }, [isPositioned, isMobile, positionGridItems]);
 
   return (
     <div
@@ -82,11 +103,8 @@ const ProjectGrid = () => {
       style={{ gridAutoRows: isMobile ? "auto" : `10px` }}
     >
       {gridProjects.map((project, index) => (
-        <div key={index}>
-          <ProjectCard
-            project={project}
-            onMediaLoad={() => handleMediaLoad(index)}
-          />
+        <div key={project.id}>
+          <ProjectCard project={project} onMediaLoad={handleMediaLoad} />
         </div>
       ))}
     </div>
