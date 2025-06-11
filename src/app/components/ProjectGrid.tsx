@@ -102,7 +102,7 @@ const ProjectGrid = () => {
       className="grid grid-cols-1 md:grid-cols-3 gap-2 px-4 py-8"
       style={{ gridAutoRows: isMobile ? "auto" : `10px` }}
     >
-      {gridProjects.map((project, _index) => (
+      {gridProjects.map((project) => (
         <div key={project.id}>
           <ProjectCard project={project} onMediaLoad={handleMediaLoad} />
         </div>
