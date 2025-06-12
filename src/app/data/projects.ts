@@ -148,7 +148,7 @@ export const projects: Project[] = [
     gridOrder: 2,
     role: "Machine Learning Engineer",
     collaborators: ["Darroll Saddi", "Ryan Li"],
-    tools: ["Gymnasium", "Python"],
+    tools: ["Gymnasium", "Python", "Pytorch"],
     additionalImages: [
       "/images/sonic1.png",
       "/images/sonic2.png",
