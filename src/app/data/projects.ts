@@ -16,6 +16,9 @@ export interface Project {
   collaborators: string[];
   tools: string[];
   additionalImages?: (string | ProjectImage)[];
+  github?: string;
+  website?: string;
+  citations?: string[];
 }
 
 export const projects: Project[] = [
@@ -33,6 +36,8 @@ export const projects: Project[] = [
     collaborators: ["Solo Project"],
     tools: ["Typescript", "Next.js", "OpenAI"],
     additionalImages: [],
+    github: "https://github.com/acyeow/changelog.ai",
+    website: "https://changelog-ai-rpsg.vercel.app/",
   },
   {
     id: "l-store-db",
@@ -47,7 +52,42 @@ export const projects: Project[] = [
     role: "Python Developer",
     collaborators: ["Calvin Lau", "James Hu", "Eugene Teng"],
     tools: ["Python"],
-    additionalImages: [],
+    additionalImages: [
+      {
+        url: "/images/lstore1.PNG",
+        caption: "L-Store base and tail records intuition.",
+      },
+      {
+        url: "/images/lstore2.PNG",
+        caption: "Record storage structure with lineage information",
+      },
+      {
+        url: "/images/lstore3.PNG",
+        caption: "Base record points to tail record via indirection.",
+      },
+      {
+        url: "/images/lstore4.PNG",
+        caption:
+          "On update, base record points to new tail record and new tail record points to old tail record.",
+      },
+      {
+        url: "/images/lstore5.PNG",
+        caption: "Merge process to consolidate base and tail records.",
+      },
+      {
+        url: "/images/lstore6.PNG",
+        caption: "Merge is performed asynchronously in the background.",
+      },
+      {
+        url: "/images/lstore7.PNG",
+        caption: "Epoch-based base page dealocation to reclaim space.",
+      },
+    ],
+    github: "https://github.com/acyeow/165a-l-store-project",
+    citations: [
+      "Sadoghi, Mohammad, et al. 'L-Store: A Real-time OLTP and OLAP System.' arXiv preprint arXiv:1601.04084 (2016). https://arxiv.org/pdf/1601.04084",
+      "ECS 165A Course Materials: 'L-Store Storage Architecture.' UC Davis, Winter 2025. https://expolab.org/ecs165a-winter2025/lectures/L-Store%20Storage%20Architecture.pdf",
+    ],
   },
   {
     id: "mistique",
@@ -93,6 +133,8 @@ export const projects: Project[] = [
         caption: "Getting the response back from the /get_query endpoint.",
       },
     ],
+    github: "https://github.com/acyeow/mistique",
+    website: "https://deploy-rag-to-aws-mu.vercel.app/",
   },
   {
     id: "sonic-gameplaying-ai",
@@ -121,22 +163,23 @@ export const projects: Project[] = [
       "/images/sonic11.png",
       "/images/sonic12.png",
     ],
+    github: "https://github.com/Iemontine/SonicGameplayingAI",
   },
-  {
-    id: "heart-disease-prediction",
-    title: "Heart Disease Prediction",
-    date: "apr 2024 - oct 2024",
-    description: "Supervised Learning",
-    fullDescription:
-      "A Light Gradient-Boosting Machine (LightGBM) model that predicts heart disease from imbalanced structured data.",
-    projectDescription: "",
-    imageUrl: "/images/heart_disease.png",
-    gridOrder: 5,
-    role: "Data Scientist",
-    collaborators: ["Solo Project"],
-    tools: ["Pytorch", "Pandas", "NumPy"],
-    additionalImages: [],
-  },
+  // {
+  //   id: "heart-disease-prediction",
+  //   title: "Heart Disease Prediction",
+  //   date: "apr 2024 - oct 2024",
+  //   description: "Supervised Learning",
+  //   fullDescription:
+  //     "A Light Gradient-Boosting Machine (LightGBM) model that predicts heart disease from imbalanced structured data.",
+  //   projectDescription: "",
+  //   imageUrl: "/images/heart_disease.png",
+  //   gridOrder: 5,
+  //   role: "Data Scientist",
+  //   collaborators: ["Solo Project"],
+  //   tools: ["Pytorch", "Pandas", "NumPy"],
+  //   additionalImages: [],
+  // },
 ];
 
 // Chronological order for timeline (original order)
