@@ -9,10 +9,11 @@ const ProjectGrid = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isPositioned, setIsPositioned] = useState(false);
   const positionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [pageVisible, setPageVisible] = useState(true);
 
   const positionGridItems = useCallback(() => {
     const grid = gridRef.current;
-    if (!grid || isMobile || isPositioned) return;
+    if (!grid || isMobile) return;
 
     // 1. Define the small "unit" height for our grid rows
     const rowHeight = 10; // in pixels
@@ -33,7 +34,39 @@ const ProjectGrid = () => {
     });
 
     setIsPositioned(true);
-  }, [isMobile, isPositioned]);
+  }, [isMobile]);
+
+  // Reset positioning when page becomes visible (handles browser back button)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible" && !pageVisible) {
+        // Page became visible again (likely from browser back button)
+        setIsPositioned(false);
+        setPageVisible(true);
+      } else if (document.visibilityState === "hidden") {
+        setPageVisible(false);
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [pageVisible]);
+
+  // Also reset on popstate (browser back/forward)
+  useEffect(() => {
+    const handlePopState = () => {
+      setIsPositioned(false);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
 
   useEffect(() => {
     // Check if window is available and set initial mobile state
@@ -55,7 +88,7 @@ const ProjectGrid = () => {
       }
     };
 
-    // Only set up positioning if not already positioned
+    // Set up positioning
     if (!isPositioned && !isMobile) {
       // Clear any existing timeout
       if (positionTimeoutRef.current) {
@@ -64,7 +97,7 @@ const ProjectGrid = () => {
 
       positionTimeoutRef.current = setTimeout(() => {
         positionGridItems();
-      }, 1000);
+      }, 500);
     }
 
     if (typeof window !== "undefined") {

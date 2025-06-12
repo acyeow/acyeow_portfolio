@@ -45,7 +45,7 @@ export const projects: Project[] = [
     date: "jan 2025 - mar 2025",
     description: "Database Systems",
     fullDescription:
-      "A lineage-based Hybrid Transactional/Analytical Processing (HTAP) database from scratch. [ECS 165A]",
+      "A reimplementation of L-Store, a lineage-based Hybrid Transactional/Analytical Processing (HTAP) database. [ECS 165A]",
     projectDescription: "",
     imageUrl: "/images/lstore_merge.png",
     gridOrder: 3,
@@ -59,7 +59,7 @@ export const projects: Project[] = [
       },
       {
         url: "/images/lstore2.PNG",
-        caption: "Record storage structure with lineage information",
+        caption: "Record storage structure with lineage information.",
       },
       {
         url: "/images/lstore3.PNG",
