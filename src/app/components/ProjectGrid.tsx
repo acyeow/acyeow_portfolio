@@ -64,7 +64,7 @@ const ProjectGrid = () => {
 
       positionTimeoutRef.current = setTimeout(() => {
         positionGridItems();
-      }, 300);
+      }, 1000);
     }
 
     if (typeof window !== "undefined") {
