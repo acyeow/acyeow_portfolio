@@ -99,10 +99,12 @@ export const projects: Project[] = [
     projectDescription: `
       mistique allows users to ask questions about the Mistral7B reserach paper thorugh a Retrival Augmented Generation (RAG) pipeline. 
       This application uses ChromaDB to create a vector database, which will be queried to find relevant information to the prompt. 
-      To create the embeddings for the vector database, Amazon Bedrock embeddings are used and cosine similarity is used to compute the 
-      similarity between the prompt embedding and embeddings saved to the ChromaDB. This functionality is wrapped in a FastAPI endpoint 
-      which has been deployed as an AWS Lambda function. AWS CDK was used to provison resources for support this functionality. The 
-      frontend of this application was created using Next.js and deployed to Vercel.
+      To create the embeddings for the vector database, Amazon Bedrock embeddings are created from overlaping chunks of text from the source pdf. 
+      Cosine similarity is used to compute the relevance between the prompt embedding and embeddings saved to the ChromaDB. This functionality 
+      is wrapped in a FastAPI endpoint which has been deployed as an AWS Lambda function. AWS Lambda has a cold start so the inital request will 
+      take longer but subsequent request will be processed more quickly. AWS CDK was used to provison resources for support this functionality. 
+      The frontend of this application was created using Next.js, Tailwind CSS, and Shadcn and deployed to Vercel. The frontend allows users to ask questions, 
+      which are processed asynchronously, about the Mistral7B paper and see the relevant sections of the paper that were used to answer the question.
       `,
     imageUrl: "/images/mistique_homepage.png",
     gridOrder: 1,
@@ -143,25 +145,90 @@ export const projects: Project[] = [
     description: "Reinforcement Learning",
     fullDescription:
       "A Proximal Policy Optimization (PPO) agent that plays Sonic the Hedgehog. [ECS 170]",
-    projectDescription: "",
+    projectDescription: `In this project, we implemented a Proximal Policy Optimization (PPO) agent that plays the first level of Sonic the Hedgehog. To create the 
+      enviornment, we used the Gymnasium libary. We also used some preprocessing wrappers from stable-baselines3 to enable the actor-critic neural network feedback loop,
+      reduce feature dimensionaity, and allow for concurrent agent training. Ultimately, we achieved the best completion rate of 78% overall and 83% when ignoring the first
+      20% of training runs. We used a 3 pass method in which each pass used a slightly different reward function. Our project implementation and presentation recieved high 
+      remarks from the professor.
+      `,
     imageUrl: "/images/sonic_clip.mp4",
     gridOrder: 2,
     role: "Machine Learning Engineer",
     collaborators: ["Darroll Saddi", "Ryan Li"],
-    tools: ["Gymnasium", "Python", "Pytorch"],
+    tools: ["Gymnasium", "Python", "PyTorch"],
     additionalImages: [
-      "/images/sonic1.png",
-      "/images/sonic2.png",
-      "/images/sonic3.png",
-      "/images/sonic4.png",
-      "/images/sonic5.png",
-      "/images/sonic6.png",
-      "/images/sonic7.png",
-      "/images/sonic8.png",
-      "/images/sonic9.png",
-      "/images/sonic10.png",
-      "/images/sonic11.png",
-      "/images/sonic12.png",
+      {
+        url: "/images/sonic1.png",
+        caption: `PPO is an actor-critic algorithm, which means that it uses two neural networks to approximate the policy and value functions. In actor-critic models, the actor controls which action the agent should take by executing the policy, while the critic returns a value that represents how good that action was in the state it was taken in. `,
+      },
+      {
+        url: "/images/sonic2.png",
+        caption: `The Surrogate Objective Function's main purpose is to keep policy updates within a trust region (to ensure stable training), using clipping within the range [1 - ϵ, 1 + ϵ], where ϵ is the hyperparameter that determines the allowed deviation between the new and old policy.
+        
+        The Probablity Ratio is primarily how the algorithm compares the current policy, πθ, and the previous policy, πθ old. By simply dividing the probability that the current policy chooses action a_t in some state s_t by the probability that the old policy chooses the same action in that state, we can quantify how much the input action influenced the policy. A resultant value greater than 1 indicates the action a_t in the state s_t is more likely than the average action, and is therefore better. Conversely, a value less than 1 means the action is worse.
+
+        Genralized Advantage Estimation (GAE) is used to calculate advantage, a measure of how much better (or worse) an action is in comparison to the expected return from the current policy, AKA the average action. At a high level, GAE significantly reduces variance (policy updates that are too large) while maintaining a tolerable level of bias (maintaining aspects of the current policy).
+        `,
+      },
+      {
+        url: "/images/sonic3.png",
+        caption:
+          "To preprocess game frames we passed them to the Frame Stacker, Observer, Action Mapper, adn Frame Skipper.",
+      },
+      {
+        url: "/images/sonic4.png",
+        caption: `The Frame Stacker was used so the agent could recognize a time dimension.
+            
+            The Frame Observer was used to feed game snapshots into a Convolutional Neural Network (CNN) reducing feature dimensionality, therby speeding up training. 
+            
+            The Action Mapper was used to create a discrete one-hot encoded action space.
+            
+            The Frame Skipper was used to periodically skip frames, allowing for faster training and less overfitting. 
+        `,
+      },
+      {
+        url: "/images/sonic5.png",
+        caption:
+          "The preprocessed frames were passed to a Convolutional Neural Network to extract features. These features were passed to the fully connected layers which outputed the a probality distribution over the actions and a estimated value of the current state. ",
+      },
+      {
+        url: "/images/sonic6.png",
+        caption: "",
+      },
+      {
+        url: "/images/sonic7.png",
+        caption:
+          "Due to initial hyperparameters, the agent got stuck on the loop obstacle. This meant that it was entering an exploitation phase too early, so to encourage more initial exploration, we increased entropy and reduced the learning rate.",
+      },
+      {
+        url: "/images/sonic8.png",
+        caption:
+          "Our initial results, using a reward function that did not punish lack of progess, resulted in a 43% winrate.",
+      },
+      {
+        url: "/images/sonic9.png",
+        caption: `To further control the exporation-exploitation tradeoff, we used a 3 pass method. The first pass did not punish lack of progress, the second did punish lack of progress, and the third added additional reward for faster completion times.
+          
+          This 3 pass method, yielded a 78% winrate.
+          `,
+      },
+      {
+        url: "/images/sonic10.png",
+        caption:
+          "To validate our results, we retrained agents using each of the reward functions, individually. We found that the pass 3 reward function yielded the same results as our 3 pass method.",
+      },
+      {
+        url: "/images/sonic11.png",
+        caption:
+          "Using only the pass 3 reward function, we achieved a similar winrate as before.",
+      },
+      {
+        url: "/images/sonic12.png",
+        caption: `We want AI-agents that can discover like we can, not which contain what we have already discovered.
+        
+        Through the work conducted in this project, we learned that implementing human ingenuity should not be the focus of practioning AI, but rather the focus should be on the learning process itself.
+        `,
+      },
     ],
     github: "https://github.com/Iemontine/SonicGameplayingAI",
   },

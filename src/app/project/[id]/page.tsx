@@ -249,7 +249,7 @@ const ProjectPage = () => {
                       />
                     )}
                     {caption && (
-                      <p className="text-zinc-400 text-[0.70rem] uppercase mt-4">
+                      <p className="text-zinc-300 text-[0.70rem] uppercase mt-4 whitespace-pre-line">
                         {caption}
                       </p>
                     )}
