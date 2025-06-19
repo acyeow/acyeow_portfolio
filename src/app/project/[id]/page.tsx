@@ -94,7 +94,7 @@ const ProjectPage = () => {
           {/* Full Description */}
           <div>
             <p className="text-gray-200 text-[0.8rem] font-semibold">
-              {project.fullDescription}
+              {project.projectDescription}
             </p>
           </div>
 

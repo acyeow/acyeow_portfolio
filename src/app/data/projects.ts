@@ -29,7 +29,8 @@ export const projects: Project[] = [
     description: "AI Engineering",
     fullDescription:
       "Building an AI-powered developer onboarding tool that facilitates comprehensive understanding of GitHub repositories.",
-    projectDescription: "",
+    projectDescription:
+      "Building an AI-powered developer onboarding tool that facilitates comprehensive understanding of GitHub repositories.",
     imageUrl: "/images/changelog_clip.mp4",
     gridOrder: 4,
     role: "AI Engineer",
@@ -46,7 +47,12 @@ export const projects: Project[] = [
     description: "Database Systems",
     fullDescription:
       "A reimplementation of L-Store, a lineage-based Hybrid Transactional/Analytical Processing (HTAP) database. [ECS 165A]",
-    projectDescription: "",
+    projectDescription: `In this project, we reimplemented L-Store, a lineage-based Hybrid Transactional/Analytical Processing (HTAP) database. 
+    L-store allows for quick updates via append-only tail pages and fast queries via pointers from read-only base records to the most recent coresponding tail record.
+    To prevent performance degradation from excessive tail records, we implemented a merge process that consolidates base and tail records asynchronously in the background.
+    The merge process creates unused base pages so we implemented an epoch-based base page deallocation process that reclaims space from base pages that are no longer referenced 
+    by any tail records. This project was implemented in Python during the Winter 2025 quarter of ECS 165A at UC Davis.
+    `,
     imageUrl: "/images/lstore_merge.png",
     gridOrder: 3,
     role: "Python Developer",
@@ -103,8 +109,8 @@ export const projects: Project[] = [
       Cosine similarity is used to compute the relevance between the prompt embedding and embeddings saved to the ChromaDB. This functionality 
       is wrapped in a FastAPI endpoint which has been deployed as an AWS Lambda function. AWS Lambda has a cold start so the inital request will 
       take longer but subsequent request will be processed more quickly. AWS CDK was used to provison resources for support this functionality. 
-      The frontend of this application was created using Next.js, Tailwind CSS, and Shadcn and deployed to Vercel. The frontend allows users to ask questions, 
-      which are processed asynchronously, about the Mistral7B paper and see the relevant sections of the paper that were used to answer the question.
+      The frontend of this application was created using Next.js, Tailwind CSS, and Shadcn and deployed to Vercel. The frontend allows users to ask questions
+      about the Mistral7B paper and see the relevant sections of the paper that were used to answer the question.
       `,
     imageUrl: "/images/mistique_homepage.png",
     gridOrder: 1,
