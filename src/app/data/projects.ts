@@ -104,13 +104,12 @@ export const projects: Project[] = [
       "A Retrieval Augmented Generation (RAG) Q/A system for the Mistral7B paper.",
     projectDescription: `
       mistique allows users to ask questions about the Mistral7B reserach paper thorugh a Retrival Augmented Generation (RAG) pipeline. 
-      This application uses ChromaDB to create a vector database, which will be queried to find relevant information to the prompt. 
+      This application uses ChromaDB to create a vector database, which will be queried to find relevant information to the query. 
       To create the embeddings for the vector database, Amazon Bedrock embeddings are created from overlaping chunks of text from the source pdf. 
-      Cosine similarity is used to compute the relevance between the prompt embedding and embeddings saved to the ChromaDB. This functionality 
-      is wrapped in a FastAPI endpoint which has been deployed as an AWS Lambda function. AWS Lambda has a cold start so the inital request will 
-      take longer but subsequent request will be processed more quickly. AWS CDK was used to provison resources for support this functionality. 
-      The frontend of this application was created using Next.js, Tailwind CSS, and Shadcn and deployed to Vercel. The frontend allows users to ask questions
-      about the Mistral7B paper and see the relevant sections of the paper that were used to answer the question.
+      Cosine similarity is used to compute the relevance between the query embedding (the embedding of the user query) and embeddings saved to the ChromaDB. 
+      This functionality is wrapped in a FastAPI endpoint which has been deployed as an AWS Lambda function. The frontend allows users to ask questions about 
+      the Mistral7B paper and see the relevant sections of the paper that were used to answer the question. The application was using built Next.js, 
+      Tailwind CSS, and Shadcn and deployed to Vercel. 
       `,
     imageUrl: "/images/mistique_homepage.png",
     gridOrder: 1,
@@ -152,10 +151,10 @@ export const projects: Project[] = [
     fullDescription:
       "A Proximal Policy Optimization (PPO) agent that plays Sonic the Hedgehog. [ECS 170]",
     projectDescription: `In this project, we implemented a Proximal Policy Optimization (PPO) agent that plays the first level of Sonic the Hedgehog. To create the 
-      enviornment, we used the Gymnasium libary. We also used some preprocessing wrappers from stable-baselines3 to enable the actor-critic neural network feedback loop,
+      environment, we used the Gymnasium libary. We also used some preprocessing wrappers from stable-baselines3 to enable the actor-critic neural network feedback loop,
       reduce feature dimensionaity, and allow for concurrent agent training. Ultimately, we achieved the best completion rate of 78% overall and 83% when ignoring the first
-      20% of training runs. We used a 3 pass method in which each pass used a slightly different reward function. Our project implementation and presentation recieved high 
-      remarks from the professor.
+      20% of training runs. We engineered a 3 pass method in which each pass used a slightly different reward function, but ultimately recognized implementing human ingenuity
+      should not be the focus, but rather to enable the learning process itself. Our project implementation and presentation recieved high remarks from the professor.
       `,
     imageUrl: "/images/sonic_clip.mp4",
     gridOrder: 2,
@@ -179,7 +178,7 @@ export const projects: Project[] = [
       {
         url: "/images/sonic3.png",
         caption:
-          "To preprocess game frames we passed them to the Frame Stacker, Observer, Action Mapper, adn Frame Skipper.",
+          "To preprocess game frames, we passed them to the Frame Stacker, Observer, Action Mapper, and Frame Skipper.",
       },
       {
         url: "/images/sonic4.png",
@@ -195,7 +194,7 @@ export const projects: Project[] = [
       {
         url: "/images/sonic5.png",
         caption:
-          "The preprocessed frames were passed to a Convolutional Neural Network to extract features. These features were passed to the fully connected layers which outputed the a probality distribution over the actions and a estimated value of the current state. ",
+          "The preprocessed frames were passed to a Convolutional Neural Network to extract features. These features were passed to the fully connected layers which outputed the a probality distribution over the actions and a estimated value of the current state. The stochastic nature of the model outputs helped to balance the exploration-exploitation tradeoff.",
       },
       {
         url: "/images/sonic6.png",
@@ -215,7 +214,7 @@ export const projects: Project[] = [
         url: "/images/sonic9.png",
         caption: `To further control the exporation-exploitation tradeoff, we used a 3 pass method. The first pass did not punish lack of progress, the second did punish lack of progress, and the third added additional reward for faster completion times.
           
-          This 3 pass method, yielded a 78% winrate.
+          This 3 pass method yielded a 78% winrate.
           `,
       },
       {
