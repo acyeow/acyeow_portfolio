@@ -10,7 +10,7 @@ const ProjectGrid = () => {
   const [isPositioned, setIsPositioned] = useState(false);
   const positionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [pageVisible, setPageVisible] = useState(true);
-  const [_, setLoadedMedia] = useState(new Set<string>());
+  const [loadedMedia, setLoadedMedia] = useState(new Set<string>());
   const totalMediaCount = gridProjects.length;
 
   const positionGridItems = useCallback(() => {
@@ -62,6 +62,7 @@ const ProjectGrid = () => {
   useEffect(() => {
     const handlePopState = () => {
       setIsPositioned(false);
+      setLoadedMedia(new Set()); // Reset loaded media tracking on navigation
     };
 
     window.addEventListener("popstate", handlePopState);
@@ -88,11 +89,12 @@ const ProjectGrid = () => {
       // Only reposition if mobile state changed
       if (wasMobile !== window.innerWidth < 768) {
         setIsPositioned(false);
+        setLoadedMedia(new Set()); // Reset loaded media tracking on resize
       }
     };
 
-    // Set up positioning
-    if (!isPositioned && !isMobile) {
+    // Only auto-position if we haven't already positioned and not in media-tracking mode
+    if (!isPositioned && !isMobile && loadedMedia.size === 0) {
       // Clear any existing timeout
       if (positionTimeoutRef.current) {
         clearTimeout(positionTimeoutRef.current);
@@ -118,18 +120,29 @@ const ProjectGrid = () => {
     };
   }, [isMobile, isPositioned, positionGridItems]);
 
-  // Simplified media load handler - track when all media is loaded
+  // Media load handler that tracks all loaded media items
   const handleMediaLoad = useCallback(
     (projectId: string) => {
+      if (isPositioned) return; // Skip if already positioned
+
       setLoadedMedia((prev) => {
         const newSet = new Set(prev);
         newSet.add(projectId);
 
         // If all media is loaded and we haven't positioned yet, position the grid
         if (newSet.size >= totalMediaCount && !isPositioned && !isMobile) {
-          setTimeout(() => {
+          console.log(
+            `All media loaded (${newSet.size}/${totalMediaCount}), positioning grid`
+          );
+          if (positionTimeoutRef.current) {
+            clearTimeout(positionTimeoutRef.current);
+          }
+
+          positionTimeoutRef.current = setTimeout(() => {
             positionGridItems();
           }, 100);
+        } else {
+          console.log(`Media loaded: ${newSet.size}/${totalMediaCount}`);
         }
 
         return newSet;
