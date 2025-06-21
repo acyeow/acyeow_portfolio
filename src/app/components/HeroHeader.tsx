@@ -4,7 +4,7 @@ import HeroProjects from "./HeroProjects";
 
 const HeroHeader = () => {
   return (
-    <div className="flex flex-col md:flex-row p-4 text-zinc-600 text-[0.7rem] space-y-6 md:space-y-0">
+    <div className="flex flex-col md:flex-row p-4 text-zinc-600 text-[0.7rem] space-y-4">
       <div className="w-full md:w-1/3">
         ABOUT
         <div className="p-1"></div>
