@@ -14,10 +14,8 @@ const HeroHeader = () => {
         <div className="p-1"></div>
       </div>
       <div className="w-full md:w-1/2">
-        <div className="flex">
-          <div className="w-1/3">PROJECTS</div>
-          <div className="w-2/3">DESCRIPTION</div>
-        </div>
+        <div className="w-1/3">PROJECTS</div>
+        <div className="w-2/3">DESCRIPTION</div>
         <div className="p-1"></div>
         <HeroProjects />
       </div>
