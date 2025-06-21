@@ -31,7 +31,7 @@ export const projects: Project[] = [
       "Building an AI-powered developer onboarding tool that facilitates comprehensive understanding of GitHub repositories.",
     projectDescription:
       "Building an AI-powered developer onboarding tool that facilitates comprehensive understanding of GitHub repositories.",
-    imageUrl: "/images/changelog_clip.mp4",
+    imageUrl: "/images/changelog_clip_compressed.mp4",
     gridOrder: 4,
     role: "AI Engineer",
     collaborators: ["Solo Project"],
@@ -156,7 +156,7 @@ export const projects: Project[] = [
       20% of training runs. We engineered a 3 pass method in which each pass used a slightly different reward function, but ultimately recognized implementing human ingenuity
       should not be the focus, but rather to enable the learning process itself. Our project implementation and presentation recieved high remarks from the professor.
       `,
-    imageUrl: "/images/sonic_clip.mp4",
+    imageUrl: "/images/sonic_clip_compressed.mp4",
     gridOrder: 2,
     role: "Machine Learning Engineer",
     collaborators: ["Darroll Saddi", "Ryan Li"],

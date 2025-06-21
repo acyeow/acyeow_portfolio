@@ -10,6 +10,8 @@ const ProjectGrid = () => {
   const [isPositioned, setIsPositioned] = useState(false);
   const positionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [pageVisible, setPageVisible] = useState(true);
+  const [loadedMedia, setLoadedMedia] = useState(new Set<string>());
+  const totalMediaCount = gridProjects.length;
 
   const positionGridItems = useCallback(() => {
     const grid = gridRef.current;
@@ -35,6 +37,26 @@ const ProjectGrid = () => {
 
     setIsPositioned(true);
   }, [isMobile]);
+
+  // Reset positioning when page becomes visible (handles browser back button)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible" && !pageVisible) {
+        // Page became visible again (likely from browser back button)
+        setIsPositioned(false);
+        setLoadedMedia(new Set()); // Reset loaded media tracking
+        setPageVisible(true);
+      } else if (document.visibilityState === "hidden") {
+        setPageVisible(false);
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [pageVisible]);
 
   // Reset positioning when page becomes visible (handles browser back button)
   useEffect(() => {
@@ -115,19 +137,25 @@ const ProjectGrid = () => {
     };
   }, [isMobile, isPositioned, positionGridItems]);
 
-  // Simplified media load handler - only for initial positioning
-  const handleMediaLoad = useCallback(() => {
-    if (!isPositioned && !isMobile) {
-      // Debounce the positioning to avoid multiple calls
-      if (positionTimeoutRef.current) {
-        clearTimeout(positionTimeoutRef.current);
-      }
+  // Simplified media load handler - track when all media is loaded
+  const handleMediaLoad = useCallback(
+    (projectId: string) => {
+      setLoadedMedia((prev) => {
+        const newSet = new Set(prev);
+        newSet.add(projectId);
 
-      positionTimeoutRef.current = setTimeout(() => {
-        positionGridItems();
-      }, 100);
-    }
-  }, [isPositioned, isMobile, positionGridItems]);
+        // If all media is loaded and we haven't positioned yet, position the grid
+        if (newSet.size >= totalMediaCount && !isPositioned && !isMobile) {
+          setTimeout(() => {
+            positionGridItems();
+          }, 100);
+        }
+
+        return newSet;
+      });
+    },
+    [totalMediaCount, isPositioned, isMobile, positionGridItems]
+  );
 
   return (
     <div
@@ -137,7 +165,10 @@ const ProjectGrid = () => {
     >
       {gridProjects.map((project) => (
         <div key={project.id}>
-          <ProjectCard project={project} onMediaLoad={handleMediaLoad} />
+          <ProjectCard
+            project={project}
+            onMediaLoad={() => handleMediaLoad(project.id)}
+          />
         </div>
       ))}
     </div>

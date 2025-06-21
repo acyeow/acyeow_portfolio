@@ -3,6 +3,7 @@
 import React, { useCallback } from "react";
 import Link from "next/link";
 import { Project } from "../data/projects";
+import Image from "next/image";
 
 interface ProjectCardProps {
   project: Project;
@@ -32,13 +33,17 @@ const ProjectCard = ({ project, onMediaLoad }: ProjectCardProps) => {
               muted
               playsInline
               onLoadedData={handleMediaLoaded}
+              preload="metadata"
             />
           ) : (
-            <img
+            <Image
               src={project.imageUrl}
               alt={project.title}
               className="w-full h-auto"
               onLoad={handleMediaLoaded}
+              width={1200}
+              height={600}
+              priority
             />
           )}
         </div>
