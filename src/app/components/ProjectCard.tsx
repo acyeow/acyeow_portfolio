@@ -47,12 +47,10 @@ const ProjectCard = ({ project, onMediaLoad }: ProjectCardProps) => {
             />
           )}
         </div>
-        <h3 className="text-gray-200 text-[0.70rem] uppercase mb-1">
-          {project.title}
-        </h3>
-        <p className="text-zinc-600 text-[0.7rem] uppercase">
-          {project.description}
-        </p>
+        <div className="text-[0.7rem] uppercase">
+          <h3 className="text-gray-200 mb-1">{project.title}</h3>
+          <p className="text-zinc-600">{project.description}</p>
+        </div>
       </div>
     </Link>
   );

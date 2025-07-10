@@ -5,7 +5,7 @@ const HeroProjects = () => {
   return (
     <div className="text-gray-200 text-[0.80rem] font-semibold">
       {timelineProjects.map((project, index) => (
-        <div key={index} className="flex items-start">
+        <div key={index} className="flex items-start mb-4">
           <div className="w-1/3">
             <div>{project.title}</div>
             <div className="text-gray-200 text-[0.70rem] font-medium uppercase">
