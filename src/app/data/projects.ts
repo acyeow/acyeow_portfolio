@@ -22,24 +22,24 @@ export interface Project {
 }
 
 export const projects: Project[] = [
-  {
-    id: "changelog-ai",
-    title: "changelog.ai",
-    date: "feb 2025 - present",
-    description: "AI Engineering",
-    fullDescription:
-      "Building an AI-powered developer onboarding tool that facilitates comprehensive understanding of GitHub repositories.",
-    projectDescription:
-      "Building an AI-powered developer onboarding tool that facilitates comprehensive understanding of GitHub repositories.",
-    imageUrl: "/images/changelog_clip_compressed.mp4",
-    gridOrder: 4,
-    role: "AI Engineer",
-    collaborators: ["Solo Project"],
-    tools: ["Typescript", "Next.js", "OpenAI"],
-    additionalImages: [],
-    github: "https://github.com/acyeow/changelog.ai",
-    website: "https://changelog-ai-rpsg.vercel.app/",
-  },
+  // {
+  //   id: "changelog-ai",
+  //   title: "changelog.ai",
+  //   date: "feb 2025 - present",
+  //   description: "AI Engineering",
+  //   fullDescription:
+  //     "Building an AI-powered developer onboarding tool that facilitates comprehensive understanding of GitHub repositories.",
+  //   projectDescription:
+  //     "Building an AI-powered developer onboarding tool that facilitates comprehensive understanding of GitHub repositories.",
+  //   imageUrl: "/images/changelog_clip_compressed.mp4",
+  //   gridOrder: 4,
+  //   role: "AI Engineer",
+  //   collaborators: ["Solo Project"],
+  //   tools: ["Typescript", "Next.js", "OpenAI"],
+  //   additionalImages: [],
+  //   github: "https://github.com/acyeow/changelog.ai",
+  //   website: "https://changelog-ai-rpsg.vercel.app/",
+  // },
   {
     id: "l-store-db",
     title: "L-Store DB",
